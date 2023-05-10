@@ -1,6 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:test2/api_services.dart';
+//import 'chat_module.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,18 +30,22 @@ class _HelloPageState extends State<HelloPage> {
   final _formKey = GlobalKey<FormState>();
   final _controller = TextEditingController();
 
-  String _message = '';
+  List _result = [];
+  String _answer = '';
+  String _summary = '';
+  String systemMessage = 'user: 안녕하세요 ai: 안녕하세요. 어떻게 도와드릴까요?';
+
+  final chatModule = ChatModule();
 
   Future<void> _submitForm() async {
-    final url = Uri.parse('https://songjuho.pythonanywhere.com/chat');
-    final response = await http.post(
-      url,
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode({'user': _controller.text}),
-    );
-    final responseData = json.decode(response.body);
-    setState(() {
-      _message = responseData['message'];
+    final userMessage = _controller.text;
+    //await chatModule.sendChatMessage(userMessage, (message) {
+    await chatModule.sendChatMessage(systemMessage, userMessage, (result) {
+      setState(() {
+        _result = result;
+        _answer = _result[0];
+        _summary = result[1];
+      });
     });
   }
 
@@ -80,7 +84,7 @@ class _HelloPageState extends State<HelloPage> {
                 child: const Text('SEND'),
               ),
               const SizedBox(height: 16.0),
-              Text(_message),
+              Text('$_answer \n $_summary'),
             ],
           ),
         ),
