@@ -26,7 +26,7 @@ class ChatModule {
   Future<void> sendChatMessage(String systemMessage, String userMessage,
       Function(List) onReceiveAnswer) async {
     // API endpoint URL 설정
-    const url = 'Your web site /chat';
+    const url = 'your web site /chat';
 
     // request body 생성
     final systemInput = {'system': systemMessage};
