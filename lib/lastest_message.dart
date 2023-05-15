@@ -1,0 +1,3 @@
+class LastMessageManager {
+  getlastestMessage() {}
+}

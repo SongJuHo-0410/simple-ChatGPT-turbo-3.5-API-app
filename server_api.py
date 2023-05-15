@@ -1,11 +1,12 @@
 import json
-import os
 from flask import Flask, request, jsonify
 import openai
 from openai.error import RateLimitError
+import os
 
 app = Flask(__name__)
-openai.api_key = "Your openai api key"
+
+openai.api_key = "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"
 
 # GPT-3.5-turbo 모델의 파라미터 설정
 model_name = "gpt-3.5-turbo"
@@ -22,6 +23,8 @@ def chat():
     system_input = request.json['system']
     user_input = request.json['user']
 
+    print(system_input)
+    print(user_input)
     # 시스템과 사용자의 대화 내용을 messages 리스트에 담음
     messages = [
         {"role": "system", "content": system_input},
@@ -40,17 +43,16 @@ def chat():
             messages=messages
         )
         # response_answer에서 응답 내용을 content_answer에 저장
-        content_answer = response_answer.choices[0].text
+        content_answer = response_answer.choices[0].message.content
     except openai.error.OpenAIError as error:
         # OpenAI API 오류 발생 시, 에러 내용을 content_answer에 저장
         content_answer = str(error)
 
     # 응답 내용과 사용자 입력을 qna 변수에 담아줌
-    qna = f"user: {user_input}\nai: {content_answer}"
-
+    qna = "user:" + user_input + "\n"+ "ai:" + content_answer
     # 시스템의 대화 내용에 qna 내용을 추가해 messages 리스트에 담음
     messages = [
-        {"role": "system", "content": f"{qna}\n다음과 같은 형태로 user:와 ai:의 대화를 구분해서 최대한 요약과 사용자의 언어에 맞게 번역"}
+        {"role": "system", "content": qna + "\n user:와 ai:의 대화를 구분해서 최대한 요약, user의 언어로"}
     ]
 
     try:
@@ -65,7 +67,7 @@ def chat():
             messages=messages
         )
         # response_summary에서 요약 내용을 content_summary에 저장
-        content_summary = response_summary.choices[0].text
+        content_summary = response_summary.choices[0].message.content
     except openai.error.OpenAIError as error:
         # OpenAI API 오류 발생 시, 에러 내용을 content_summary에 저장
         content_summary = str(error)
