@@ -64,7 +64,6 @@ Flask 웹 애플리케이션을 통해 API 서버가 시작됩니다.
 
 - `systemMessage` (문자열): 시스템 메시지입니다.
 - `userMessage` (문자열): 사용자 메시지입니다.
-- `onReceiveAnswer` (함수(List)): 응답을 받을 때 호출될 콜백 함수입니다.
 
 #### 반환값
 
@@ -76,14 +75,11 @@ Flask 웹 애플리케이션을 통해 API 서버가 시작됩니다.
 import 'api_services.dart';
 
 void main() async {
-  final chatModule = ChatModule();
-
-  await chatModule.sendChatMessage('안녕하세요', '잘 지내시나요?', (List result) {
-    final answer = result[0];
-    final summary = result[1];
-    print('답변: $answer');
-    print('요약: $summary');
-  });
+  final result = await ChatModule.sendChatMessage('시스템 메시지', '사용자 메시지');
+  final answer = result[0];
+  final summary = result[1];
+  print('응답: $answer');
+  print('요약: $summary');
 }
 ```
 
