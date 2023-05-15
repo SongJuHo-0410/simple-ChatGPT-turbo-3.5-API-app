@@ -20,11 +20,9 @@ presence_penalty = 0
 @app.route("/chat", methods=['POST'])
 def chat():
     # 클라이언트로부터 받은 시스템 입력(system_input)과 사용자 입력(user_input)을 가져옴
-    system_input = request.json['system']
-    user_input = request.json['user']
-
-    print(system_input)
-    print(user_input)
+    system_input = json.loads(request.json['system'])['system']
+    user_input = json.loads(request.json['user'])['user']
+    
     # 시스템과 사용자의 대화 내용을 messages 리스트에 담음
     messages = [
         {"role": "system", "content": system_input},
