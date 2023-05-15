@@ -28,8 +28,7 @@ class ChatModule {
   Future<void> sendChatMessage(String systemMessage, String userMessage,
       Function(List) onReceiveAnswer) async {
     // API endpoint URL 설정
-    const url = 'https://songjuho.pythonanywhere.com/chat';
-    //const url = 'http://10.20.105.137:5000/chat';
+    const url = 'YOUR WEB SITE/chat';
 
     // request body 생성
     final systemInput = {'system': systemMessage};

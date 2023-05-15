@@ -6,7 +6,7 @@ import os
 
 app = Flask(__name__)
 
-openai.api_key = "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"
+openai.api_key = "YOUR OPENAI KEY"
 
 # GPT-3.5-turbo 모델의 파라미터 설정
 model_name = "gpt-3.5-turbo"
