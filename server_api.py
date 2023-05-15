@@ -21,6 +21,7 @@ def chat():
     # 클라이언트로부터 받은 시스템 입력(system_input)과 사용자 입력(user_input)을 가져옴
     system_input = json.loads(request.json['system'])['system']
     user_input = json.loads(request.json['user'])['user']
+    
 
     # 시스템과 사용자의 대화 내용을 messages 리스트에 담음
     messages = [
