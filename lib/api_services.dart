@@ -25,8 +25,8 @@ class HttpModule {
 
 class ChatModule {
   // 채팅 메시지 전송 메서드
-  Future<void> sendChatMessage(String systemMessage, String userMessage,
-      Function(List) onReceiveAnswer) async {
+  static Future<List> sendChatMessage(
+      String systemMessage, String userMessage) async {
     // API endpoint URL 설정
     const url = 'YOUR WEB SITE/chat';
 
@@ -40,7 +40,7 @@ class ChatModule {
     // response body 파싱
     final responseData = json.decode(response.body);
     final result = [responseData['answer'], responseData['summary']];
-    // 콜백 함수 호출하여 결과 전달
-    onReceiveAnswer(result);
+
+    return result;
   }
 }

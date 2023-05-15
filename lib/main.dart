@@ -29,23 +29,16 @@ class _HelloPageState extends State<HelloPage> {
   final _formKey = GlobalKey<FormState>();
   final _controller = TextEditingController();
 
-  List _result = [];
   String _answer = '';
   String _summary = '';
   String systemMessage = 'user: 안녕하세요 ai: 안녕하세요. 어떻게 도와드릴까요?';
 
-  final chatModule = ChatModule();
-
   Future<void> _submitForm() async {
     final userMessage = _controller.text;
-    //await chatModule.sendChatMessage(userMessage, (message) {
-    await chatModule.sendChatMessage(systemMessage, userMessage, (result) {
-      setState(() {
-        _result = result;
-        _answer = _result[0];
-        _summary = result[1];
-      });
-    });
+    final List<dynamic> result =
+        await ChatModule.sendChatMessage(systemMessage, userMessage);
+    _answer = result[0];
+    _summary = result[1];
   }
 
   @override
