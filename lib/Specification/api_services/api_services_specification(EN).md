@@ -32,11 +32,10 @@ Sends a chat message to the API endpoint and receives the answer.
 
 - `systemMessage` (String): The system message.
 - `userMessage` (String): The user message.
-- `onReceiveAnswer` (Function(List)): A callback function to receive the answer.
 
 #### Returns
 
-A `Future<void>` object.
+A `Future<List>` object.
 
 ## Example Usage
 
@@ -44,12 +43,10 @@ A `Future<void>` object.
 import 'api_services.dart';
 
 void main() async {
-  final chatModule = ChatModule();
-
-  await chatModule.sendChatMessage('Hello', 'How are you?', (List result) {
-    final answer = result[0];
-    final summary = result[1];
-    print('Answer: $answer');
-    print('Summary: $summary');
-  });
+  final result = await ChatModule.sendChatMessage('시스템 메시지', '사용자 메시지');
+  final answer = result[0];
+  final summary = result[1];
+  print('응답: $answer');
+  print('요약: $summary');
 }
+```
