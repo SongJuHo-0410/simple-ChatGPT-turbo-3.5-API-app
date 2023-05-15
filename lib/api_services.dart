@@ -41,7 +41,6 @@ class ChatModule {
     // response body 파싱
     final responseData = json.decode(response.body);
     final result = [responseData['answer'], responseData['summary']];
-    print(result);
     // 콜백 함수 호출하여 결과 전달
     onReceiveAnswer(result);
   }
